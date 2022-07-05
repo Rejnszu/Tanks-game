@@ -1,0 +1,61 @@
+.tank {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: black;
+
+  transform: translateX(-50%);
+  border-radius: 4px;
+  transition: all 0.1s linear;
+}
+.tank__gun {
+  position: absolute;
+  content: "";
+  width: 4px;
+  height: 20px;
+  background-color: rgb(255, 255, 255);
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+}
+
+.tank__track--left {
+  position: absolute;
+  background-color: white;
+  height: 70%;
+  top: 6px;
+  width: 4px;
+  left: -5px;
+  border-radius: 2px;
+}
+.tank__track--right {
+  position: absolute;
+  background-color: white;
+  height: 70%;
+  top: 6px;
+  width: 4px;
+  right: -5px;
+  border-radius: 2px;
+}
+.tank__bullet {
+  position: absolute;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background-color: red;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.tank__bullet.animate {
+  animation: shoot linear forwards;
+}
+@keyframes shoot {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px);
+    opacity: 1;
+  }
+}

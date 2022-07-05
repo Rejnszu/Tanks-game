@@ -1,0 +1,60 @@
+.background {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 110;
+  padding: 0rem 1rem;
+  border: 2px solid black;
+  background-image: url(../../images/legendBackground.jpg);
+  background-size: contain;
+  background-position: center;
+  color: rgb(255, 255, 255);
+  display: block;
+  font-weight: 700;
+  height: 35px;
+  overflow: hidden;
+}
+.background::after {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.background.active {
+  height: auto;
+}
+.legend {
+  position: relative;
+
+  z-index: 110;
+}
+
+.legend ul {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  z-index: 111;
+}
+.legend img {
+  width: 25px;
+  height: 20px;
+}
+.legend i {
+  font-size: 1.5rem;
+}
+.legend h4 {
+  position: relative;
+  z-index: 110;
+  margin: 0.5rem;
+}
+.toggle-legend {
+  position: absolute;
+  top: -15px;
+  right: 2px;
+  color: white;
+  z-index: 120;
+  cursor: pointer;
+}

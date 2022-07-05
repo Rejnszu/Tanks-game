@@ -1,0 +1,9 @@
+.start-page {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-image: url(./../../images/war.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
