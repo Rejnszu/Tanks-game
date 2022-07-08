@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/Tanks-game/static/css/main.e1a0ad30.chunk.css",
-    "main.js": "/Tanks-game/static/js/main.421df30c.chunk.js",
-    "main.js.map": "/Tanks-game/static/js/main.421df30c.chunk.js.map",
+    "main.css": "/Tanks-game/static/css/main.b51f843f.chunk.css",
+    "main.js": "/Tanks-game/static/js/main.a417942e.chunk.js",
+    "main.js.map": "/Tanks-game/static/js/main.a417942e.chunk.js.map",
     "runtime-main.js": "/Tanks-game/static/js/runtime-main.aff124bf.js",
     "runtime-main.js.map": "/Tanks-game/static/js/runtime-main.aff124bf.js.map",
-    "static/js/2.8260b955.chunk.js": "/Tanks-game/static/js/2.8260b955.chunk.js",
-    "static/js/2.8260b955.chunk.js.map": "/Tanks-game/static/js/2.8260b955.chunk.js.map",
+    "static/js/2.358ce47d.chunk.js": "/Tanks-game/static/js/2.358ce47d.chunk.js",
+    "static/js/2.358ce47d.chunk.js.map": "/Tanks-game/static/js/2.358ce47d.chunk.js.map",
     "index.html": "/Tanks-game/index.html",
-    "static/css/main.e1a0ad30.chunk.css.map": "/Tanks-game/static/css/main.e1a0ad30.chunk.css.map",
-    "static/js/2.8260b955.chunk.js.LICENSE.txt": "/Tanks-game/static/js/2.8260b955.chunk.js.LICENSE.txt",
-    "static/media/Map.module.css": "/Tanks-game/static/media/concrete.8dad6194.jpg",
+    "static/css/main.b51f843f.chunk.css.map": "/Tanks-game/static/css/main.b51f843f.chunk.css.map",
+    "static/js/2.358ce47d.chunk.js.LICENSE.txt": "/Tanks-game/static/js/2.358ce47d.chunk.js.LICENSE.txt",
+    "static/media/MapSelect.module.css": "/Tanks-game/static/media/concrete.8dad6194.jpg",
+    "static/media/LavaMap.module.css": "/Tanks-game/static/media/lava_ground.b8ab46e2.jpg",
     "static/media/Legend.module.css": "/Tanks-game/static/media/legendBackground.1d24f647.jpg",
     "static/media/StartPage.module.css": "/Tanks-game/static/media/war.294a35f0.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.aff124bf.js",
-    "static/js/2.8260b955.chunk.js",
-    "static/css/main.e1a0ad30.chunk.css",
-    "static/js/main.421df30c.chunk.js"
+    "static/js/2.358ce47d.chunk.js",
+    "static/css/main.b51f843f.chunk.css",
+    "static/js/main.a417942e.chunk.js"
   ]
 }
