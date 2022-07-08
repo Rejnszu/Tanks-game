@@ -12,7 +12,7 @@ body {
   height: 100vh;
   position: relative;
 }
-.game-start__button {
+.game__button {
   position: absolute;
   top: 50%;
   left: 50%;

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useReducer, useCallback, useEffect, useRef } from "react";
 import styles from "./Tank.module.css";
-
+import ComputerTankContext from "../../store/computerTank-context";
 const initialState = {
   horizontalMove: 50,
   verticalMove: 80,
@@ -68,6 +68,7 @@ function tankReducer(state, action) {
 }
 
 export default function Tank(props) {
+  const compTankCtx = useContext(ComputerTankContext);
   const Bullet = useRef(null);
   const [tankState, dispatchTank] = useReducer(tankReducer, initialState);
   const { verticalMove, horizontalMove, rotate } = tankState;
@@ -117,7 +118,10 @@ export default function Tank(props) {
     },
     [verticalMove, horizontalMove]
   );
-  function shoot() {
+
+  const computerTankPosition = compTankCtx.position;
+
+  const shoot = () => {
     let bulletSpeed = 600;
     if (Bullet.current.classList.contains(styles.animate)) {
       return;
@@ -128,7 +132,20 @@ export default function Tank(props) {
         Bullet.current.classList.remove(styles.animate);
       }, bulletSpeed);
     }
-  }
+
+    if (
+      Bullet.current.getBoundingClientRect().x + 75 >=
+        computerTankPosition.horizontal &&
+      Bullet.current.getBoundingClientRect().x - 75 <=
+        computerTankPosition.horizontal &&
+      Bullet.current.getBoundingClientRect().y + 50 >=
+        computerTankPosition.vertical &&
+      Bullet.current.getBoundingClientRect().y - 50 <=
+        computerTankPosition.vertical
+    ) {
+      compTankCtx.destroyComputerTank();
+    }
+  };
 
   useEffect(() => {
     document.addEventListener("keydown", moveTank);

@@ -7,6 +7,7 @@ export default function Legend() {
   function toggleLegend() {
     setShowLegend((legend) => !legend);
   }
+
   return (
     <div className={`${styles.background} ${showLegend ? styles.active : ""}`}>
       <div className={`${styles.legend} ${showLegend ? styles.active : ""}`}>
