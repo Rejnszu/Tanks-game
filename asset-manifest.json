@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Tanks-game/static/css/main.b51f843f.chunk.css",
-    "main.js": "/Tanks-game/static/js/main.a417942e.chunk.js",
-    "main.js.map": "/Tanks-game/static/js/main.a417942e.chunk.js.map",
+    "main.js": "/Tanks-game/static/js/main.ab93db22.chunk.js",
+    "main.js.map": "/Tanks-game/static/js/main.ab93db22.chunk.js.map",
     "runtime-main.js": "/Tanks-game/static/js/runtime-main.aff124bf.js",
     "runtime-main.js.map": "/Tanks-game/static/js/runtime-main.aff124bf.js.map",
-    "static/js/2.358ce47d.chunk.js": "/Tanks-game/static/js/2.358ce47d.chunk.js",
-    "static/js/2.358ce47d.chunk.js.map": "/Tanks-game/static/js/2.358ce47d.chunk.js.map",
+    "static/js/2.1e2a79d1.chunk.js": "/Tanks-game/static/js/2.1e2a79d1.chunk.js",
+    "static/js/2.1e2a79d1.chunk.js.map": "/Tanks-game/static/js/2.1e2a79d1.chunk.js.map",
     "index.html": "/Tanks-game/index.html",
     "static/css/main.b51f843f.chunk.css.map": "/Tanks-game/static/css/main.b51f843f.chunk.css.map",
-    "static/js/2.358ce47d.chunk.js.LICENSE.txt": "/Tanks-game/static/js/2.358ce47d.chunk.js.LICENSE.txt",
+    "static/js/2.1e2a79d1.chunk.js.LICENSE.txt": "/Tanks-game/static/js/2.1e2a79d1.chunk.js.LICENSE.txt",
     "static/media/MapSelect.module.css": "/Tanks-game/static/media/concrete.8dad6194.jpg",
     "static/media/LavaMap.module.css": "/Tanks-game/static/media/lava_ground.b8ab46e2.jpg",
     "static/media/Legend.module.css": "/Tanks-game/static/media/legendBackground.1d24f647.jpg",
@@ -17,8 +17,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.aff124bf.js",
-    "static/js/2.358ce47d.chunk.js",
+    "static/js/2.1e2a79d1.chunk.js",
     "static/css/main.b51f843f.chunk.css",
-    "static/js/main.a417942e.chunk.js"
+    "static/js/main.ab93db22.chunk.js"
   ]
 }
