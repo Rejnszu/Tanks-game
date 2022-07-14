@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
 import styles from "./PlayAgain.module.css";
-import ComputerTankContext from "../../store/computerTank-context";
+import { useDispatch } from "react-redux";
+import { computerTankActions } from "../redux store/computerTank";
 export default function PlayAgain(props) {
-  const compTankCtx = useContext(ComputerTankContext);
+  const dispatch = useDispatch();
   function playAgainHandler() {
     props.playAgain();
-    compTankCtx.repairComputerTank();
+    dispatch(computerTankActions.repair());
   }
   return (
     <div className={styles["play-again"]}>

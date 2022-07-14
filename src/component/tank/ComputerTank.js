@@ -1,31 +1,58 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Transition } from "react-transition-group";
 import styles from "./ComputerTank.module.css";
-import ComputerTankContext from "../../store/computerTank-context";
-
+import { useSelector, useDispatch } from "react-redux";
+import { computerTankActions } from "../redux store/computerTank";
+const actionTypes = [
+  computerTankActions.left(),
+  computerTankActions.right(),
+  computerTankActions.top(),
+  computerTankActions.down(),
+];
 export default function ComputerTank(props) {
-  const compTankCtx = useContext(ComputerTankContext);
+  const dispatch = useDispatch();
 
-  const position = compTankCtx.position;
+  const computerTank = useSelector((state) => state.computerTank);
 
-  const { horizontal, vertical, rotate } = position;
+  const { horizontal, vertical, rotate, destroyed } = computerTank;
+
+  const moveComputerTank = useCallback(() => {
+    if (
+      100 <= horizontal &&
+      horizontal < window.innerWidth - 100 &&
+      100 < vertical &&
+      vertical < window.innerHeight - 100
+    ) {
+      dispatch(
+        actionTypes[Math.round(Math.random() * (actionTypes.length - 1))]
+      );
+    } else {
+      if (horizontal <= 100) {
+        dispatch(computerTankActions.resetLeft());
+      }
+      if (horizontal >= window.innerWidth - 100) {
+        dispatch(computerTankActions.resetRight());
+      }
+      if (vertical <= 100) {
+        dispatch(computerTankActions.resetTop());
+      }
+      if (vertical >= window.innerHeight - 100) {
+        dispatch(computerTankActions.resetDown());
+      }
+    }
+  }, [horizontal, vertical, dispatch]);
 
   useEffect(() => {
     let timer;
-    if (!compTankCtx.destroyed) {
-      timer = setInterval(compTankCtx.moveComputerTank, 1500);
+    if (!destroyed) {
+      timer = setInterval(moveComputerTank, 1500);
     }
     return () => {
       clearInterval(timer);
     };
-  }, [compTankCtx.destroyed, compTankCtx.moveComputerTank]);
+  }, [destroyed, moveComputerTank]);
   return (
-    <Transition
-      in={!compTankCtx.destroyed}
-      timeout={3000}
-      mountOnEnter
-      unmountOnExit
-    >
+    <Transition in={!destroyed} timeout={3000} mountOnEnter unmountOnExit>
       {(state) => (
         <React.Fragment>
           <div

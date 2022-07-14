@@ -17,14 +17,14 @@ const initialState = {
 function compTankReducer(state, action) {
   if (action.type === "left") {
     return {
-      horizontal: state.horizontal - 150,
+      horizontal: state.horizontal - 100,
       vertical: state.vertical,
       rotate: -90,
     };
   }
   if (action.type === "right") {
     return {
-      horizontal: state.horizontal + 150,
+      horizontal: state.horizontal + 100,
       vertical: state.vertical,
       rotate: 90,
     };
@@ -32,14 +32,14 @@ function compTankReducer(state, action) {
   if (action.type === "top") {
     return {
       horizontal: +state.horizontal,
-      vertical: +state.vertical - 150,
+      vertical: +state.vertical - 100,
       rotate: 0,
     };
   }
   if (action.type === "down") {
     return {
       horizontal: state.horizontal,
-      vertical: state.vertical + 150,
+      vertical: state.vertical + 100,
       rotate: 180,
     };
   }

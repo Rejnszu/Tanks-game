@@ -21,7 +21,7 @@
   content: "";
   width: 4px;
   height: 20px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
   left: 50%;
   transform: translateX(-50%);
   top: -10px;
@@ -29,7 +29,7 @@
 
 .tank__track--left {
   position: absolute;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
   height: 70%;
   top: 6px;
   width: 4px;
@@ -38,7 +38,7 @@
 }
 .tank__track--right {
   position: absolute;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
   height: 70%;
   top: 6px;
   width: 4px;

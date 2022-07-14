@@ -1,5 +1,5 @@
 import React from "react";
-import RockLogo from "./../../../images/rock.png";
+import RockLogo from "../../../../images/rock.png";
 import styles from "./Rock.module.css";
 export default function Rock(props) {
   return (

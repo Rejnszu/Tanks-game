@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useReducer, useCallback, useEffect, useRef } from "react";
 import styles from "./Tank.module.css";
-import ComputerTankContext from "../../store/computerTank-context";
+import { computerTankActions } from "../redux store/computerTank";
 const initialState = {
   horizontalMove: 50,
   verticalMove: 80,
   rotate: 0,
 };
+
 function tankReducer(state, action) {
   if (action.type === "left") {
     return {
@@ -68,10 +70,38 @@ function tankReducer(state, action) {
 }
 
 export default function Tank(props) {
-  const compTankCtx = useContext(ComputerTankContext);
+  const dispatch = useDispatch();
+  const computerTank = useSelector((state) => state.computerTank);
+  const {
+    horizontal: computerHorizontal,
+    vertical: computerVertical,
+    destroyed,
+  } = computerTank;
   const Bullet = useRef(null);
   const [tankState, dispatchTank] = useReducer(tankReducer, initialState);
   const { verticalMove, horizontalMove, rotate } = tankState;
+
+  const shoot = useCallback(() => {
+    let bulletSpeed = 600;
+    if (Bullet.current.classList.contains(styles.animate)) {
+      return;
+    } else {
+      Bullet.current.classList.add(styles.animate);
+      Bullet.current.style.animationDuration = bulletSpeed + "ms";
+      setTimeout(() => {
+        Bullet.current.classList.remove(styles.animate);
+      }, bulletSpeed);
+    }
+
+    if (
+      Bullet.current.getBoundingClientRect().x + 150 >= computerHorizontal &&
+      Bullet.current.getBoundingClientRect().x - 150 <= computerHorizontal &&
+      Bullet.current.getBoundingClientRect().y + 75 >= computerVertical &&
+      Bullet.current.getBoundingClientRect().y - 75 <= computerVertical
+    ) {
+      dispatch(computerTankActions.destroy());
+    }
+  }, [computerHorizontal, computerVertical, dispatch]);
 
   const moveTank = useCallback(
     (e) => {
@@ -116,41 +146,15 @@ export default function Tank(props) {
         }
       }
     },
-    [verticalMove, horizontalMove]
+    [verticalMove, horizontalMove, shoot]
   );
 
-  const computerTankPosition = compTankCtx.position;
-
-  const shoot = () => {
-    let bulletSpeed = 600;
-    if (Bullet.current.classList.contains(styles.animate)) {
-      return;
-    } else {
-      Bullet.current.classList.add(styles.animate);
-      Bullet.current.style.animationDuration = bulletSpeed + "ms";
-      setTimeout(() => {
-        Bullet.current.classList.remove(styles.animate);
-      }, bulletSpeed);
-    }
-
-    if (
-      Bullet.current.getBoundingClientRect().x + 75 >=
-        computerTankPosition.horizontal &&
-      Bullet.current.getBoundingClientRect().x - 75 <=
-        computerTankPosition.horizontal &&
-      Bullet.current.getBoundingClientRect().y + 50 >=
-        computerTankPosition.vertical &&
-      Bullet.current.getBoundingClientRect().y - 50 <=
-        computerTankPosition.vertical
-    ) {
-      compTankCtx.destroyComputerTank();
-    }
-  };
-
   useEffect(() => {
-    document.addEventListener("keydown", moveTank);
+    if (!destroyed) {
+      document.addEventListener("keydown", moveTank);
+    }
     return () => document.removeEventListener("keydown", moveTank);
-  }, [moveTank]);
+  }, [moveTank, destroyed]);
   return (
     <div
       style={{

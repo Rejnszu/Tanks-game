@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ComputerTankContextProvider } from "./store/computerTank-context";
+import { Provider } from "react-redux";
+
 import "./index.css";
 import App from "./App";
 
+import store from "./component/redux store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <ComputerTankContextProvider>
+  <Provider store={store}>
     <App />
-  </ComputerTankContextProvider>
+  </Provider>
 );

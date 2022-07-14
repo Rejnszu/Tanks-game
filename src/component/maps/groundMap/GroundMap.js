@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Map.module.css";
+import styles from "./GroundMap.module.css";
 import SingleTree from "./environment/SingleTree";
 import Rock from "./environment/Rock";
 import GroupTree from "./environment/GroupTree";
@@ -7,7 +7,7 @@ const horizontalTreeArray = new Array(31).fill(1);
 const verticalTreeArray = new Array(63).fill(1);
 const randomArray = new Array(30).fill(1);
 
-const Map = (props) => {
+const GroundMap = (props) => {
   return (
     <div className={styles.map}>
       <div className={styles.leftTrees}>
@@ -57,4 +57,4 @@ const Map = (props) => {
     </div>
   );
 };
-export default React.memo(Map);
+export default React.memo(GroundMap);
