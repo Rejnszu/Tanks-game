@@ -12,7 +12,9 @@ export default function MapSelect() {
     Array.from(mapRef.current.children).forEach((map) => {
       map.style.border = "none";
     });
-    e.target.style.border = "3px solid red";
+    if (e.target.getAttribute("data-map")) {
+      e.target.style.border = "3px solid red";
+    }
   }
 
   return (

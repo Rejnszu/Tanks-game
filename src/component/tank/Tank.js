@@ -1,85 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useReducer, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { Transition } from "react-transition-group";
+import { tankActions } from "../redux store/tank";
 import styles from "./Tank.module.css";
 import { computerTankActions } from "../redux store/computerTank";
-const initialState = {
-  horizontalMove: 50,
-  verticalMove: 80,
-  rotate: 0,
-};
-
-function tankReducer(state, action) {
-  if (action.type === "left") {
-    return {
-      horizontalMove: state.horizontalMove - 1,
-      verticalMove: state.verticalMove,
-      rotate: -90,
-    };
-  }
-  if (action.type === "right") {
-    return {
-      horizontalMove: state.horizontalMove + 1,
-      verticalMove: state.verticalMove,
-      rotate: 90,
-    };
-  }
-  if (action.type === "top") {
-    return {
-      horizontalMove: state.horizontalMove,
-      verticalMove: state.verticalMove - 2,
-      rotate: 0,
-    };
-  }
-  if (action.type === "down") {
-    return {
-      horizontalMove: state.horizontalMove,
-      verticalMove: state.verticalMove + 2,
-      rotate: 180,
-    };
-  }
-  if (action.type === "resetLeft") {
-    return {
-      horizontalMove: state.horizontalMove + 2,
-      verticalMove: state.verticalMove,
-      rotate: 90,
-    };
-  }
-  if (action.type === "resetRight") {
-    return {
-      horizontalMove: state.horizontalMove - 2,
-      verticalMove: state.verticalMove,
-      rotate: -90,
-    };
-  }
-  if (action.type === "resetTop") {
-    return {
-      horizontalMove: state.horizontalMove,
-      verticalMove: state.verticalMove + 2,
-      rotate: 180,
-    };
-  }
-  if (action.type === "resetDown") {
-    return {
-      horizontalMove: state.horizontalMove,
-      verticalMove: state.verticalMove - 2,
-      rotate: 0,
-    };
-  }
-  return { horizontalMove: 50, verticalMove: 80, rotate: 0 };
-}
 
 export default function Tank(props) {
   const dispatch = useDispatch();
+
   const computerTank = useSelector((state) => state.computerTank);
   const {
     horizontal: computerHorizontal,
     vertical: computerVertical,
-    destroyed,
+    destroyed: computerTankDestroyed,
   } = computerTank;
   const Bullet = useRef(null);
-  const [tankState, dispatchTank] = useReducer(tankReducer, initialState);
-  const { verticalMove, horizontalMove, rotate } = tankState;
+  const tankState = useSelector((state) => state.tank);
+  const { horizontal, vertical, rotate, destroyed } = tankState;
 
   const shoot = useCallback(() => {
     let bulletSpeed = 600;
@@ -94,10 +32,10 @@ export default function Tank(props) {
     }
 
     if (
-      Bullet.current.getBoundingClientRect().x + 150 >= computerHorizontal &&
-      Bullet.current.getBoundingClientRect().x - 150 <= computerHorizontal &&
-      Bullet.current.getBoundingClientRect().y + 75 >= computerVertical &&
-      Bullet.current.getBoundingClientRect().y - 75 <= computerVertical
+      Bullet.current.getBoundingClientRect().x + 100 >= computerHorizontal &&
+      Bullet.current.getBoundingClientRect().x - 100 <= computerHorizontal &&
+      Bullet.current.getBoundingClientRect().y + 100 >= computerVertical &&
+      Bullet.current.getBoundingClientRect().y - 100 <= computerVertical
     ) {
       dispatch(computerTankActions.destroy());
     }
@@ -106,23 +44,23 @@ export default function Tank(props) {
   const moveTank = useCallback(
     (e) => {
       if (
-        -1 <= horizontalMove &&
-        horizontalMove < 100 &&
-        -1 < verticalMove &&
-        verticalMove < 100
+        30 <= horizontal &&
+        horizontal < window.innerWidth - 30 &&
+        30 < vertical &&
+        vertical < window.innerHeight - 30
       ) {
         switch (e.key) {
           case "ArrowUp":
-            dispatchTank({ type: "top" });
+            dispatch(tankActions.top());
             break;
           case "ArrowDown":
-            dispatchTank({ type: "down" });
+            dispatch(tankActions.down());
             break;
           case "ArrowLeft":
-            dispatchTank({ type: "left" });
+            dispatch(tankActions.left());
             break;
           case "ArrowRight":
-            dispatchTank({ type: "right" });
+            dispatch(tankActions.right());
             break;
 
           case " ":
@@ -132,43 +70,58 @@ export default function Tank(props) {
             return;
         }
       } else {
-        if (horizontalMove <= -1) {
-          dispatchTank({ type: "resetLeft" });
+        if (horizontal <= 30) {
+          dispatch(tankActions.resetLeft());
         }
-        if (horizontalMove >= 100) {
-          dispatchTank({ type: "resetRight" });
+        if (horizontal >= window.innerWidth - 30) {
+          dispatch(tankActions.resetRight());
         }
-        if (verticalMove <= -1) {
-          dispatchTank({ type: "resetTop" });
+        if (vertical <= 30) {
+          dispatch(tankActions.resetTop());
         }
-        if (verticalMove >= 100) {
-          dispatchTank({ type: "resetDown" });
+        if (vertical >= window.innerHeight - 30) {
+          dispatch(tankActions.resetDown());
         }
       }
     },
-    [verticalMove, horizontalMove, shoot]
+    [vertical, horizontal, shoot, dispatch]
   );
 
   useEffect(() => {
-    if (!destroyed) {
+    if (!computerTankDestroyed) {
       document.addEventListener("keydown", moveTank);
     }
     return () => document.removeEventListener("keydown", moveTank);
-  }, [moveTank, destroyed]);
+  }, [moveTank, computerTankDestroyed]);
   return (
-    <div
-      style={{
-        left: horizontalMove + "%",
-        top: verticalMove + "%",
-        transform: `rotate(${rotate}deg)`,
-      }}
-      className={styles.tank}
-    >
-      <span className={styles["tank__gun"]}>
-        <span ref={Bullet} className={styles["tank__bullet"]} />
-      </span>
-      <span className={styles["tank__track--left"]}></span>
-      <span className={styles["tank__track--right"]}></span>
-    </div>
+    <Transition in={!destroyed} timeout={2000} mountOnEnter unmountOnExit>
+      {(state) => (
+        <React.Fragment>
+          <div
+            style={{
+              left: horizontal + "px",
+              top: vertical + "px",
+              transform: `rotate(${rotate}deg)`,
+              display: state === "exiting" ? "none" : "block",
+            }}
+            className={styles.tank}
+          >
+            <span className={styles["tank__gun"]}>
+              <span ref={Bullet} className={styles["tank__bullet"]} />
+            </span>
+            <span className={styles["tank__track--left"]}></span>
+            <span className={styles["tank__track--right"]}></span>
+          </div>
+          <div
+            className={styles.fire}
+            style={{
+              left: horizontal + "px",
+              top: vertical + "px",
+              display: state === "exiting" ? "block" : "none",
+            }}
+          ></div>
+        </React.Fragment>
+      )}
+    </Transition>
   );
 }

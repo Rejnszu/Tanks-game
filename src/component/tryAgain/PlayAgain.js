@@ -1,11 +1,15 @@
 import styles from "./PlayAgain.module.css";
 import { useDispatch } from "react-redux";
 import { computerTankActions } from "../redux store/computerTank";
+import { mapActions } from "../redux store/mapSelect";
+import { tankActions } from "../redux store/tank";
 export default function PlayAgain(props) {
   const dispatch = useDispatch();
   function playAgainHandler() {
     props.playAgain();
     dispatch(computerTankActions.repair());
+    dispatch(mapActions.resetMap());
+    dispatch(tankActions.reset());
   }
   return (
     <div className={styles["play-again"]}>

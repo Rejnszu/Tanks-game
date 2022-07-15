@@ -18,7 +18,15 @@
   transform: translateX(-50%);
   top: -10px;
 }
-
+.fire {
+  position: absolute;
+  background-image: url("../../images/fire1.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+}
 .tank__track--left {
   position: absolute;
   background-color: white;

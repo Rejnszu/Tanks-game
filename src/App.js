@@ -12,7 +12,10 @@ import { useSelector } from "react-redux";
 
 function App() {
   const map = useSelector((state) => state.map.map);
-  const destroyed = useSelector((state) => state.computerTank.destroyed);
+  const computerDestroyed = useSelector(
+    (state) => state.computerTank.destroyed
+  );
+  const playerDestroyed = useSelector((state) => state.tank.destroyed);
   const [startGame, setStartGame] = useState(false);
 
   function startGameHandler() {
@@ -44,7 +47,9 @@ function App() {
           <Tank />
         </React.Fragment>
       )}
-      {startGame && destroyed && <PlayAgain playAgain={playAgainHandler} />}
+      {startGame && (computerDestroyed || playerDestroyed) && (
+        <PlayAgain playAgain={playAgainHandler} />
+      )}
     </React.Fragment>
   );
 }

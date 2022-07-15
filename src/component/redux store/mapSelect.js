@@ -7,6 +7,9 @@ const mapSlice = createSlice({
     setMap(state, action) {
       state.map = action.payload;
     },
+    resetMap(state) {
+      state.map = null;
+    },
   },
 });
 export const mapActions = mapSlice.actions;
