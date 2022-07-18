@@ -3,7 +3,7 @@ import styles from "./LavaMap.module.css";
 import Volcano from "./environment/Volcano";
 import GroupRock from "./environment/GroupRock";
 const randomArray = new Array(30).fill(1);
-const horizontalRockArray = new Array(31).fill(1);
+const horizontalRockArray = new Array(50).fill(1);
 const verticalRockArray = new Array(90).fill(1);
 const LavaMap = (props) => {
   return (

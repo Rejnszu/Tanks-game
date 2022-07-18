@@ -10,7 +10,7 @@ export default function Volcano(props) {
         top: props.top + "%",
       }}
     >
-      <img src={VolcanoLogo} alt="Rock" />
+      <img src={VolcanoLogo} alt="Volcano" />
     </div>
   );
 }

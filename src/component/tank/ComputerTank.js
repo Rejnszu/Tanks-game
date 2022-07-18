@@ -54,7 +54,6 @@ export default function ComputerTank(props) {
   }, [horizontal, vertical, dispatch]);
 
   const shoot = () => {
-    console.log("shot");
     let bulletSpeed = 600;
     if (Bullet.current.classList.contains(styles.animate)) {
       return;

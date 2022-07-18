@@ -3,7 +3,7 @@ import styles from "./GroundMap.module.css";
 import SingleTree from "./environment/SingleTree";
 import Rock from "./environment/Rock";
 import GroupTree from "./environment/GroupTree";
-const horizontalTreeArray = new Array(31).fill(1);
+const horizontalTreeArray = new Array(50).fill(1);
 const verticalTreeArray = new Array(90).fill(1);
 const randomArray = new Array(30).fill(1);
 

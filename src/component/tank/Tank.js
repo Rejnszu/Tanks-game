@@ -5,6 +5,7 @@ import { Transition } from "react-transition-group";
 import { tankActions } from "../redux store/tank";
 import styles from "./Tank.module.css";
 import { computerTankActions } from "../redux store/computerTank";
+import { boostsActions } from "../redux store/boosts";
 
 export default function Tank(props) {
   const dispatch = useDispatch();
@@ -22,10 +23,14 @@ export default function Tank(props) {
     vertical,
     rotate,
     destroyed: playerDestroyed,
+    attackSpeed,
   } = tankState;
 
+  const boostsState = useSelector((state) => state.boosts);
+  const { speedBoostActive, attackSpeedBoostActive } = boostsState;
+
   const shoot = useCallback(() => {
-    let bulletSpeed = 600;
+    let bulletSpeed = 600 / attackSpeed;
 
     if (Bullet.current.classList.contains(styles.animate)) {
       return;
@@ -55,8 +60,7 @@ export default function Tank(props) {
 
   const moveTank = useCallback(
     (e) => {
-      console.log(Bullet.current.getBoundingClientRect());
-      console.log(computerHorizontal, computerVertical);
+      checkIfBoosted();
       if (
         30 <= horizontal &&
         horizontal < window.innerWidth - 30 &&
@@ -100,6 +104,29 @@ export default function Tank(props) {
     },
     [vertical, horizontal, shoot, dispatch]
   );
+
+  function checkIfBoosted() {
+    if (
+      speedBoostActive &&
+      props.speedBoostHorizontal + 30 >= horizontal &&
+      props.speedBoostHorizontal - 30 <= horizontal &&
+      props.speedBoostVertical + 30 >= vertical &&
+      props.speedBoostVertical - 30 <= vertical
+    ) {
+      dispatch(tankActions.boostSpeed());
+      dispatch(boostsActions.speedBoostHandler());
+    }
+    if (
+      attackSpeedBoostActive &&
+      props.attackSpeedBoostHorizontal + 30 >= horizontal &&
+      props.attackSpeedBoostHorizontal - 30 <= horizontal &&
+      props.attackSpeedBoostVertical + 30 >= vertical &&
+      props.attackSpeedBoostVertical - 30 <= vertical
+    ) {
+      dispatch(tankActions.boostAttackSpeed());
+      dispatch(boostsActions.attackSpeedBoostHandler());
+    }
+  }
 
   useEffect(() => {
     if (!computerTankDestroyed && !playerDestroyed) {

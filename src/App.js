@@ -9,8 +9,28 @@ import MapSelect from "./component/startPage/mapSelect/MapSelect";
 import PlayAgain from "./component/tryAgain/PlayAgain";
 
 import { useSelector } from "react-redux";
+import SpeedBoost from "./component/boosts/SpeedBoost";
+import SpeedAttackBoost from "./component/boosts/SpeedAttackBoost";
 
 function App() {
+  const [boostPosition, setBoostPosition] = useState({
+    speedBoostHorizontal:
+      Math.round(Math.random() * (window.innerWidth - 60)) + 60,
+    speedBoostVertical:
+      Math.round(Math.random() * (window.innerHeight - 60)) + 60,
+    attackSpeedBoostHorizontal:
+      Math.round(Math.random() * (window.innerWidth - 60)) + 60,
+    attackSpeedBoostVertical:
+      Math.round(Math.random() * (window.innerHeight - 60)) + 60,
+  });
+
+  const {
+    speedBoostHorizontal,
+    speedBoostVertical,
+    attackSpeedBoostHorizontal,
+    attackSpeedBoostVertical,
+  } = boostPosition;
+
   const map = useSelector((state) => state.map.map);
   const computerDestroyed = useSelector(
     (state) => state.computerTank.destroyed
@@ -23,6 +43,16 @@ function App() {
   }
   function playAgainHandler() {
     setStartGame(false);
+    setBoostPosition({
+      speedBoostHorizontal:
+        Math.round(Math.random() * (window.innerWidth - 100)) + 100,
+      speedBoostVertical:
+        Math.round(Math.random() * (window.innerHeight - 100)) + 100,
+      attackSpeedBoostHorizontal:
+        Math.round(Math.random() * (window.innerWidth - 100)) + 100,
+      attackSpeedBoostVertical:
+        Math.round(Math.random() * (window.innerHeight - 100)) + 100,
+    });
   }
 
   return (
@@ -42,9 +72,18 @@ function App() {
       {startGame && (
         <React.Fragment>
           <Maps />
-
+          <SpeedBoost left={speedBoostHorizontal} top={speedBoostVertical} />
+          <SpeedAttackBoost
+            left={attackSpeedBoostHorizontal}
+            top={attackSpeedBoostVertical}
+          />
           <ComputerTank />
-          <Tank />
+          <Tank
+            speedBoostHorizontal={speedBoostHorizontal}
+            speedBoostVertical={speedBoostVertical}
+            attackSpeedBoostHorizontal={attackSpeedBoostHorizontal}
+            attackSpeedBoostVertical={attackSpeedBoostVertical}
+          />
         </React.Fragment>
       )}
       {startGame && (computerDestroyed || playerDestroyed) && (

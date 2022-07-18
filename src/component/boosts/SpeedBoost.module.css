@@ -1,0 +1,36 @@
+.boost {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  background-color: rgba(115, 255, 0, 0.7);
+  border-radius: 50%;
+}
+.stonks {
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-size: 2.5rem;
+  animation: stonks 3s infinite;
+}
+
+@keyframes stonks {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(0.75);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.75);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
