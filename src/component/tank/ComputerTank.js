@@ -67,10 +67,16 @@ export default function ComputerTank(props) {
     }
 
     if (
-      Bullet.current.getBoundingClientRect().x + 100 >= playerHorizontal &&
-      Bullet.current.getBoundingClientRect().x - 100 <= playerHorizontal &&
-      Bullet.current.getBoundingClientRect().y + 100 >= playerVertical &&
-      Bullet.current.getBoundingClientRect().y - 100 <= playerVertical
+      ((rotate === 0 || rotate === 180) &&
+        Bullet.current.getBoundingClientRect().x + 30 >= playerHorizontal &&
+        Bullet.current.getBoundingClientRect().x - 30 <= playerHorizontal &&
+        Bullet.current.getBoundingClientRect().y + 150 >= playerVertical &&
+        Bullet.current.getBoundingClientRect().y - 150 <= playerVertical) ||
+      ((rotate === 90 || rotate === -90) &&
+        Bullet.current.getBoundingClientRect().x + 150 >= playerHorizontal &&
+        Bullet.current.getBoundingClientRect().x - 150 <= playerHorizontal &&
+        Bullet.current.getBoundingClientRect().y + 30 >= playerVertical &&
+        Bullet.current.getBoundingClientRect().y - 30 <= playerVertical)
     ) {
       dispatch(tankActions.destroy());
     }
@@ -80,7 +86,7 @@ export default function ComputerTank(props) {
     let moveTimer;
     let shootTimer;
     if (!computerDestroyed && !playerDestroyed) {
-      moveTimer = setInterval(moveComputerTank, 1500);
+      moveTimer = setInterval(moveComputerTank, 2000);
       shootTimer = setInterval(shoot, 1000);
     }
     return () => {

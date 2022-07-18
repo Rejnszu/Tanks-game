@@ -52,12 +52,10 @@ const computerTankSlice = createSlice({
       state.vertical =
         Math.round(Math.random() * (window.innerHeight - 30)) + 30;
       state.rotate = 0;
+      state.destroyed = false;
     },
     destroy(state) {
       state.destroyed = true;
-    },
-    repair(state) {
-      state.destroyed = false;
     },
   },
 });

@@ -7,9 +7,9 @@ export default function PlayAgain(props) {
   const dispatch = useDispatch();
   function playAgainHandler() {
     props.playAgain();
-    dispatch(computerTankActions.repair());
-    dispatch(mapActions.resetMap());
+    dispatch(computerTankActions.reset());
     dispatch(tankActions.reset());
+    dispatch(mapActions.resetMap());
   }
   return (
     <div className={styles["play-again"]}>

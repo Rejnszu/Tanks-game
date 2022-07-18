@@ -17,10 +17,16 @@ export default function Tank(props) {
   } = computerTank;
   const Bullet = useRef(null);
   const tankState = useSelector((state) => state.tank);
-  const { horizontal, vertical, rotate, destroyed } = tankState;
+  const {
+    horizontal,
+    vertical,
+    rotate,
+    destroyed: playerDestroyed,
+  } = tankState;
 
   const shoot = useCallback(() => {
     let bulletSpeed = 600;
+
     if (Bullet.current.classList.contains(styles.animate)) {
       return;
     } else {
@@ -32,10 +38,16 @@ export default function Tank(props) {
     }
 
     if (
-      Bullet.current.getBoundingClientRect().x + 100 >= computerHorizontal &&
-      Bullet.current.getBoundingClientRect().x - 100 <= computerHorizontal &&
-      Bullet.current.getBoundingClientRect().y + 100 >= computerVertical &&
-      Bullet.current.getBoundingClientRect().y - 100 <= computerVertical
+      ((rotate === 0 || rotate === 180) &&
+        Bullet.current.getBoundingClientRect().x + 50 >= computerHorizontal &&
+        Bullet.current.getBoundingClientRect().x - 50 <= computerHorizontal &&
+        Bullet.current.getBoundingClientRect().y + 150 >= computerVertical &&
+        Bullet.current.getBoundingClientRect().y - 150 <= computerVertical) ||
+      ((rotate === 90 || rotate === -90) &&
+        Bullet.current.getBoundingClientRect().x + 150 >= computerHorizontal &&
+        Bullet.current.getBoundingClientRect().x - 150 <= computerHorizontal &&
+        Bullet.current.getBoundingClientRect().y + 50 >= computerVertical &&
+        Bullet.current.getBoundingClientRect().y - 50 <= computerVertical)
     ) {
       dispatch(computerTankActions.destroy());
     }
@@ -43,6 +55,8 @@ export default function Tank(props) {
 
   const moveTank = useCallback(
     (e) => {
+      console.log(Bullet.current.getBoundingClientRect());
+      console.log(computerHorizontal, computerVertical);
       if (
         30 <= horizontal &&
         horizontal < window.innerWidth - 30 &&
@@ -88,13 +102,13 @@ export default function Tank(props) {
   );
 
   useEffect(() => {
-    if (!computerTankDestroyed) {
+    if (!computerTankDestroyed && !playerDestroyed) {
       document.addEventListener("keydown", moveTank);
     }
     return () => document.removeEventListener("keydown", moveTank);
-  }, [moveTank, computerTankDestroyed]);
+  }, [moveTank, computerTankDestroyed, playerDestroyed]);
   return (
-    <Transition in={!destroyed} timeout={2000} mountOnEnter unmountOnExit>
+    <Transition in={!playerDestroyed} timeout={2000} mountOnEnter unmountOnExit>
       {(state) => (
         <React.Fragment>
           <div

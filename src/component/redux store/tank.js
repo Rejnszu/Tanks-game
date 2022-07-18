@@ -55,9 +55,6 @@ const tankSlice = createSlice({
     destroy(state) {
       state.destroyed = true;
     },
-    repair(state) {
-      state.destroyed = false;
-    },
   },
 });
 
